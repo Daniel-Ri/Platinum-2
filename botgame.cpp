@@ -2,9 +2,10 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-
+#include <queue>
+ 
 using namespace std;
-
+ 
 /**
  * Auto-generated code below aims at helping you parse
  * the standard input according to the problem statement.
@@ -15,16 +16,12 @@ int main()
     int myId; // my player ID (0 or 1)
     int zoneCount; // the amount of zones on the map
     int linkCount; // the amount of links between all zones
-    cin >> playerCount >> myId >> zoneCount >> linkCount; cin.ignore();
+    cin >> playerCount >> myId >> zoneCount >> linkCount;
+    int platinumSource[zoneCount];
     for (int i = 0; i < zoneCount; i++) {
         int zoneId; // this zone's ID (between 0 and zoneCount-1)
-        int platinumSource; // Because of the fog, will always be 0
-        cin >> zoneId >> platinumSource; cin.ignore();
-    }
-    for (int i = 0; i < linkCount; i++) {
-        int zone1;
-        int zone2;
-        cin >> zone1 >> zone2; cin.ignore();
+        cin >> zoneId;
+        cin >> platinumSource[zoneId];
     }
     
     vector <int> adjacentZone[zoneCount];
@@ -35,26 +32,37 @@ int main()
         adjacentZone[zone1].push_back(zone2);
         adjacentZone[zone2].push_back(zone1);
     }
+ 
+    int ownerId[zoneCount];
+    int podsP0[zoneCount];
+    int podsP1[zoneCount];
+    bool visible[zoneCount];
+    int myPlatinum;
+    int prio[zoneCount];
     // game loop
     while (1) {
-        int myPlatinum; // your available Platinum
-        cin >> myPlatinum; cin.ignore();
+        cin >> myPlatinum; 
+        //queue <int> prioQueue;
         for (int i = 0; i < zoneCount; i++) {
             int zId; // this zone's ID
-            int ownerId; // the player who owns this zone (-1 otherwise)
-            int podsP0; // player 0's PODs on this zone
-            int podsP1; // player 1's PODs on this zone
-            int visible; // 1 if one of your units can see this tile, else 0
-            int platinum; // the amount of Platinum this zone can provide (0 if hidden by fog)
-            cin >> zId >> ownerId >> podsP0 >> podsP1 >> visible >> platinum; cin.ignore();
+            cin >> zId;
+            cin >> ownerId[zId] >> podsP0[zId] >> podsP1[zId] >> visible[zId] >> platinumSource[zId]; cin.ignore();
+ 
         }
-
+ 
         // Write an action using cout. DON'T FORGET THE "<< endl"
         // To debug: cerr << "Debug messages..." << endl;
-
-
+ 
         // first line for movement commands, second line no longer used (see the protocol in the statement for details)
-        cout << "WAIT" << endl;
+        for (int i = 0; i < zoneCount; ++i) {
+            if (((myId == 0 && podsP0[i] != 0) || (myId == 1 && podsP1[i] != 0))) {
+                int next = adjacentZone[i][0];
+                if (myId == 0) cout << podsP0[i];
+                else cout << podsP1[i];
+                cout << ' ' << i << ' ' << next << ' ';
+            }
+        }
+        cout << endl;
         cout << "WAIT" << endl;
     }
 }
