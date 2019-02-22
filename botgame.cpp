@@ -26,7 +26,15 @@ int main()
         int zone2;
         cin >> zone1 >> zone2; cin.ignore();
     }
-
+    
+    vector <int> adjacentZone[zoneCount];
+    for (int i = 0; i < linkCount; i++) {
+        int zone1;
+        int zone2;
+        cin >> zone1 >> zone2;
+        adjacentZone[zone1].push_back(zone2);
+        adjacentZone[zone2].push_back(zone1);
+    }
     // game loop
     while (1) {
         int myPlatinum; // your available Platinum
