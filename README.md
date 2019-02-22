@@ -1,6 +1,12 @@
 # Platinum-2
 An interesting task
 
+Anggota Kelompok:
+* M. Afra Dzaki       - 16418056
+* Fandi Azam Wiranata - 16518131
+* Daniel Riyanto      - 16518296
+* Firas Zuhair Altair - 16918213
+
 Strategi:
 * Jika zoneID HQ(HeadQuarter) Lawan > zoneID HQ(HeadQuarter) Sendiri maka
   - zoneID tengah = ((IdZone HQ Lawan) + (zoneID HQ Sendiri)) / 2 
@@ -16,3 +22,4 @@ Strategi:
        
        
       
+ 
